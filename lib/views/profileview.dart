@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/SocialMediaApp/model/usercomment.dart';
-import 'package:flutter_application_1/SocialMediaApp/model/userdata.dart';
-import 'package:flutter_application_1/SocialMediaApp/model/userpost.dart';
+import 'package:flutter_application_2/model/usercomment.dart';
+import 'package:flutter_application_2/model/userdata.dart';
+import 'package:flutter_application_2/model/userpost.dart';
 
 class ProfileView extends StatelessWidget {
   ProfileView({super.key, required this.userPost});
@@ -59,45 +59,166 @@ class ProfileView extends StatelessWidget {
     )
   );
 
-  Widget 
+  Widget usercommenterline(Userpost userPost, Usercomment userComment) => Row(
+  crossAxisAlignment: CrossAxisAlignment.start,
+  mainAxisAlignment: MainAxisAlignment.start,
+  children: [
+    commenterPic(userComment),
+    Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        commentSpace(userComment),
+        commentBtn(userComment),
+      ],
+    ),
+  ],
+); // Row
+
+Widget userpostdetails(Usercomment userComment) => Column(
+  mainAxisAlignment: MainAxisAlignment.start,
+  children: [
+    const SizedBox(height: 15),
+    usercommenterline(userPost, userComment),
+  ],
+);
+
+Widget commenters(Userpost userPost) => Column(
+  mainAxisAlignment: MainAxisAlignment.start,
+  children: [
+    const Divider(color: Colors.grey),
+    Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10),
+      child: Row(
+        children: [Text(userPost.numshares, style: boldTxtStyle)],
+      ),
+    ),
+    const SizedBox(height: 15),
+    Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10),
+      child: Row(
+        children: [
+          Text('All comments', style: boldTxtStyle),
+          const Icon(Icons.arrow_drop_down),
+        ],
+      ),
+    ),
+  ],
+); 
+
+Widget buttons(Userpost userPost) => Column(
+  mainAxisAlignment: MainAxisAlignment.start,
+  children: [
+    Divider(color: Colors.grey),
+    Padding(padding: const EdgeInsets.symmetric(horizontal: 10),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        TextButton.icon(
+          style: TextButton.styleFrom(
+            foregroundColor: userPost.isLiked ? Colors.grey : Colors.blue,
+          ),
+          onPressed: () {},
+          icon: const Icon(Icons.thumb_up, size: 20),
+          label: const Text('Like'),
+        ),
+        TextButton.icon(
+          style: TextButton.styleFrom(
+            foregroundColor: Colors.grey,
+          ),
+          onPressed: () {},
+          icon: const Icon(Icons.chat_bubble, size: 20),
+          label: const Text('Comment'),
+        ),
+        TextButton.icon(
+          style: TextButton.styleFrom(
+            foregroundColor: Colors.grey,
+          ),
+          onPressed: () {},
+          icon: const Icon(Icons.share, size: 20),
+          label: const Text('Share'),
+        ),
+      ],
+    ),
+    ),
+  ],
+);
+
+Widget userline(Userpost userPost) => Row(
+  crossAxisAlignment: CrossAxisAlignment.start,
+  mainAxisAlignment: MainAxisAlignment.start,
+  children: [
+    Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10),
+      child: CircleAvatar(
+        backgroundImage: AssetImage(userPost.userimg),
+        radius: 20,
+      ),
+    ),
+    Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(userPost.username, style: nameTxtStyle),
+        const SizedBox(height: 5.5),
+        Row(
+          children: [
+            Text(userPost.time),
+            const Text(' · '),
+            const Icon(Icons.group, size: 15, color: Colors.grey),
+          ],
+        ),
+      ],
+    ),
+  ],
+);
+
+Widget postimage(Userpost userPost) => Padding(
+  padding: const EdgeInsets.all(10.0),
+  child: Column(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [
+      Row(
+        children: [Text(userPost.postcontent)],
+      ), // Row
+      const SizedBox(height: 15),
+      ClipRRect(
+        borderRadius: BorderRadius.circular(10),
+        child: Image.asset(
+          userPost.postimg,
+          width: double.infinity,
+          fit: BoxFit.cover,
+        ),
+      ), 
+    ],
+  ),
+);
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: userdata.postList.length,
-      itemBuilder: (BuildContext context, int index) {
-        final post = userdata.postList[index];
-        return Card(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              ListTile(
-                leading: CircleAvatar(
-                  backgroundImage: AssetImage(post.userimg),
-                ),
-                title: Text(post.username),
-                subtitle: Text(post.time),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(post.postcontent),
-              ),
-              if (post.postimg.isNotEmpty)
-                Image.asset(post.postimg),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text('${post.numcomments} comments'),
-                    Text('${post.numshares} shares'),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        );
-      },
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        bottomOpacity: 0.0,
+        elevation: 0.0,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: const Icon(Icons.arrow_back, color: Colors.grey),
+        ),
+      ), 
+      body: ListView(
+        padding: EdgeInsets.zero,
+        children: [
+          userline(userPost),
+          postimage(userPost),
+          buttons(userPost),
+          commenters(userPost),
+          ...userData.commentList.map(
+            (userComment) => userpostdetails(userComment)),
+        ],
+      ),
     );
   }
 }
