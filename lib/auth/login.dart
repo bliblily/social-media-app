@@ -41,6 +41,7 @@ class _LoginFormState extends State<LoginForm> {
     });
   }
   
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
@@ -49,12 +50,15 @@ class _LoginFormState extends State<LoginForm> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Row(
+              Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset('assets/images/logo.png', width: 48, height: 48),
+                  Image.asset('assets/logo.jpg', width: 48, height: 48),
                   const SizedBox(width: 10),
-                  Text('Social Media App', style: txtstyle),
+                  Container(
+                    margin: const EdgeInsets.only(bottom: 10),
+                    child: Text('Social Media App', style: txtstyle),
+                  ),
                 ],
               ),
 
@@ -74,7 +78,7 @@ class _LoginFormState extends State<LoginForm> {
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: 'Enter Password',
-                  prefixIcon: Icon(Icons.lock),                  ),
+                  prefixIcon: Icon(Icons.lock),),
                   ),
               const SizedBox(height: 15), 
 

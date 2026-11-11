@@ -80,8 +80,8 @@ class Userdata {
     name: 'Gwendolyn Lianna Peralta', 
     email: 'gwenperalta@gmail.com',
     img: 'assets/user.jpg',
-    numFollowers: '120',
-    numPosts: '35', 
-    numFollowing: '80',
-    numfriends: '50');
+    numFollowers: '320',
+    numPosts: '135', 
+    numFollowing: '100',
+    numfriends: '500');
 }

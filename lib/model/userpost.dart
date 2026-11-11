@@ -1,3 +1,6 @@
+
+import 'usercomment.dart';
+
 class Userpost {
   final String userimg;
   final String username;
@@ -5,8 +8,10 @@ class Userpost {
   final String postcontent;
   final String postimg;
   final String numcomments;
-  final String numshares; 
+  final String numshares;
   bool isLiked;
+
+  List<Usercomment> comments;
 
   Userpost({
     required this.userimg,
@@ -17,5 +22,6 @@ class Userpost {
     required this.numcomments,
     required this.numshares,
     this.isLiked = false,
-  });
+    List<Usercomment>? comments,
+  }) : comments = comments ?? [];
 }
