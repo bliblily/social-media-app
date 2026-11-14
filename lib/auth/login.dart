@@ -53,11 +53,11 @@ class _LoginFormState extends State<LoginForm> {
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset('assets/logo.jpg', width: 48, height: 48),
+                  Image.asset('assets/logo3.jpg', width: 48, height: 48),
                   const SizedBox(width: 10),
                   Container(
-                    margin: const EdgeInsets.only(bottom: 10),
-                    child: Text('Social Media App', style: txtstyle),
+                    margin: const EdgeInsets.only(bottom: 10, top: 10),
+                    child: Text('Friendr', style: txtstyle),
                   ),
                 ],
               ),
@@ -85,7 +85,7 @@ class _LoginFormState extends State<LoginForm> {
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   minimumSize: const Size.fromHeight(50),
-                  backgroundColor: Colors.blue,
+                  backgroundColor: const Color.fromARGB(255, 0, 0, 0),
                   foregroundColor: Colors.white,
                   padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 ),
